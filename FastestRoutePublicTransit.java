@@ -1,7 +1,7 @@
 /**
  * Public Transit
  * Author: Dennis Chang and Carolyn Yao
- * Does this compile? Y/N
+ * Does this compile? Y
  */
 
 /**
