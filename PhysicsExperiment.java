@@ -1,7 +1,7 @@
 /**
  * Physics Experiment
- * Author: Your Name and Carolyn Yao
- * Does this compile or finish running within 5 seconds? Y/N
+ * Author: Dennis Chang and Carolyn Yao
+ * Does this compile or finish running within 5 seconds? Y
  */
 
 /**
@@ -15,6 +15,7 @@
  * You don't need to use the helper methods, but if they come in handy setting
  * up a custom test case, feel free to use them.
  */
+
 public class PhysicsExperiment {
 
   /**
@@ -38,7 +39,39 @@ public class PhysicsExperiment {
     int[][] scheduleTable = new int[numStudents + 1][numSteps + 1];
 
     // Your code goes here
+    int currentStep = 1;
+    int tempCurrentStep;
+    int maxConsecutiveSteps = 0;
+    int maxConsecutiveStudent = 0;
+    int consecutiveSteps;
 
+    while (currentStep <= numSteps){
+
+      for(int student= 1; student<= numStudents; student++){
+        //find longest consecutiveSteps from currentStep
+        if(signUpTable[student][currentStep] == 1){
+          //find the length of consecutiveSteps
+          consecutiveSteps = 1;
+          tempCurrentStep = currentStep;
+          while((tempCurrentStep + 1 <= numSteps) && signUpTable[student][tempCurrentStep+1] == 1){
+            consecutiveSteps++;
+            tempCurrentStep++;
+          }
+          //record the longest consecutiveSteps
+          if(consecutiveSteps > maxConsecutiveSteps){
+            maxConsecutiveSteps = consecutiveSteps;
+            maxConsecutiveStudent = student;
+          }
+        }
+      }
+
+      while(maxConsecutiveSteps > 0){
+        scheduleTable[maxConsecutiveStudent][currentStep] = 1;
+
+        currentStep++;
+        maxConsecutiveSteps--;
+      }
+    }
     return scheduleTable;
   }
 
@@ -148,6 +181,7 @@ public class PhysicsExperiment {
    * the only output when running this file.
    */
   public static void main(String args[]){
+
     PhysicsExperiment pe = new PhysicsExperiment();
 
     // Experiment 1: Example 1 from README, 3 students, 6 steps:
@@ -161,5 +195,6 @@ public class PhysicsExperiment {
     // Experiment 3: Another test case, 5 students, 11 steps
     int[][] signUpsExperiment3 = {{7, 10, 11}, {8, 9, 10}, {2, 3, 4, 5, 7}, {1, 5, 6, 7, 8}, {1, 3, 4, 8}};
     pe.makeExperimentAndSchedule(3, 5, 11, signUpsExperiment3);
+
   }
 }
